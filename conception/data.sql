@@ -28,4 +28,28 @@ INSERT INTO Formations (titre, duree, date_debut, date_fin, description, lieu, t
 ('DWWM', 390, '2020-03-16', '2020-08-13', 'Formation pour devenir développeur web ou web mobile, comme tu veux', 'Bordeaux', 'À distance'),
 ('CDA', 520, '2020-01-18', '2020-07-22', 'Formation concepteur développeur d application', 'Paris', 'Présentielle');
 
+INSERT INTO Ressources (titre, chemin, coursId) VALUES
+('PHP intro', './ressources/php-intro.pdf', 6),
+('Jquery intro', './ressources/jquery-intro.pdf', 3),
+('NodeJS pour les nuls', './ressources/nodejs-nuls.pdf', 4),
+('PHP avancé', './ressources/php-avancé.pdf', 6),
+('Javascript', './ressources/js.pdf', 2);
+
+INSERT INTO NoteCours(note, coursId, utilisateurId) VALUES
+(8, 6, 4),
+(2, 1, 3),
+(10, 5, 5);
+
+INSERT INTO devoirs(titre, coursId) VALUES
+('Faire du crud', 6),
+('Parcourir le DOM', 3),
+('Créer une horloge', 2),
+('Créer un CV avec html/css', 1);
+
+INSERT INTO notedevoir(note, devoirsId, utilisateurId) VALUES
+(10, 1, 5),
+(8, 2, 6),
+(9, 3, 6),
+(9, 4, 4);
+
 SET FOREIGN_KEY_CHECKS = 1;
