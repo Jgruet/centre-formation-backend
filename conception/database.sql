@@ -2,6 +2,7 @@ DROP database if exists centre_formation;
 CREATE database centre_formation default character set utf8;
 USE centre_formation;
 SET FOREIGN_KEY_CHECKS = 0;
+
 CREATE table Utilisateurs (
     id smallint unsigned auto_increment,
     nom varchar (55) not null,
@@ -92,4 +93,8 @@ CREATE table NoteDevoir (
     CONSTRAINT NoteDevoir_to_Utilisateurs FOREIGN KEY (utilisateurId) references Utilisateurs(id)
 );
 
+<<<<<<< HEAD
 SET FOREIGN_KEY_CHECKS = 1;
+=======
+SET FOREIGN_KEY_CHECKS = 1;
+>>>>>>> 666915019f32c0b8393115726dfbc23747c4452e
