@@ -93,4 +93,8 @@ CREATE table NoteDevoir (
     CONSTRAINT NoteDevoir_to_Utilisateurs FOREIGN KEY (utilisateurId) references Utilisateurs(id)
 );
 
+<<<<<<< HEAD
 SET FOREIGN_KEY_CHECKS = 1;
+=======
+SET FOREIGN_KEY_CHECKS = 1;
+>>>>>>> 666915019f32c0b8393115726dfbc23747c4452e
