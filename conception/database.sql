@@ -2,7 +2,6 @@ DROP database if exists centre_formation;
 CREATE database centre_formation default character set utf8;
 USE centre_formation;
 SET FOREIGN_KEY_CHECKS = 0;
-
 CREATE table Utilisateurs (
     id smallint unsigned auto_increment,
     nom varchar (55) not null,
