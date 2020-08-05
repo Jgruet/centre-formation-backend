@@ -2,6 +2,7 @@ DROP database if exists centre_formation;
 CREATE database centre_formation default character set utf8;
 USE centre_formation;
 SET FOREIGN_KEY_CHECKS = 0;
+
 CREATE table Utilisateurs (
     id smallint unsigned auto_increment,
     nom varchar (55) not null,
@@ -12,7 +13,7 @@ CREATE table Utilisateurs (
     PRIMARY KEY(id),
     CONSTRAINT Utilisateurs_to_Roles FOREIGN KEY (roleId) references Roles(id)
 );
-/*
+
 CREATE table Roles (
     id tinyint unsigned auto_increment,
     nom varchar(55),
@@ -39,7 +40,7 @@ CREATE table Cours (
     duree smallint unsigned not null,
     PRIMARY KEY (id),
     CONSTRAINT Cours_to_Formations FOREIGN KEY (formationId) references Formations(id),
-    CONSTRAINT Cours_to_Utilisateurs FOREIGN KEY (formateurId) references Utilisateurs(id),
+    CONSTRAINT Cours_to_Utilisateurs FOREIGN KEY (formateurId) references Utilisateurs(id)
 );
 CREATE table Inscription (
     etudiantId smallint unsigned not null,
@@ -89,7 +90,7 @@ CREATE table NoteDevoir (
     utilisateurId smallint unsigned not null,
     PRIMARY KEY (devoirsId, utilisateurId),
     CONSTRAINT NoteDevoir_to_Devoirs FOREIGN KEY (devoirsId) references Devoirs(id),
-    CONSTRAINT NoteDevoir_to_Utilisateurs FOREIGN KEY (utilisateursId) references Utilisateurs(id)
+    CONSTRAINT NoteDevoir_to_Utilisateurs FOREIGN KEY (utilisateurId) references Utilisateurs(id)
 );
-*/
+
 SET FOREIGN_KEY_CHECKS = 1;
