@@ -1,0 +1,1 @@
+INSERT INTO inscription(etudiantId,formationId) VALUES (3,1),(4,2),(5,1);
