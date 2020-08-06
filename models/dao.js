@@ -1,7 +1,7 @@
 // Définition du DAO générique, méthode d'accès aux données
 const mysql = require('./connexion');
 
-const DAO = function (tableName) {
+DAO = function (tableName) {
     this.tableName = tableName;
 
     const query = async (sql, data = []) => {
@@ -12,6 +12,7 @@ const DAO = function (tableName) {
 
     const findAll = async () => {
         const rows = await query('SELECT * FROM ??', [this.tableName]);
+        console.log(rows[0]);
         return rows[0];
     };
 
