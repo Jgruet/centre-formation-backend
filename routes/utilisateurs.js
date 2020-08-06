@@ -4,8 +4,8 @@ var utilisateursDAO = require('../models/utilisateursDAO');
 
 /* GET users listing. */
 router.get('/', async (req, res) => {
-    let result = await utilisateursDAO.findOneBy('roleId', 2);
-    console.log(result);
+    let result = JSON.parse(JSON.stringify(await utilisateursDAO.findOneBy('roleId', 2)));
+    res.send(result);
 });
 
 router.post('/', async (req, res) => {
@@ -17,7 +17,8 @@ router.post('/', async (req, res) => {
         mdp: req.body.mdp
     }
     let result = await utilisateursDAO.insertOne(user);
-    console.log(result);
+    console.log(result.affectedRows);
+    res.send(result);
 })
 
 module.exports = router;
