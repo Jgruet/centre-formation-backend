@@ -8,7 +8,23 @@ router.get('/', async (req, res) => {
     let result = JSON.parse(JSON.stringify(await utilisateursDAO.findOneBy('roleId', 2)));
     res.send(result);
 });
+// route login
 
+router.post('/', async (req, res) => {
+    let passCheck = false;
+    const user = await utilisateursDAO.findUserByEmail(req.body.mail);
+    if (user && 'mdp' in user) {
+        passCheck = await bcrypt.compare(req.body.mdp, user.mdp);
+        console.log('Vous êtes connecté');
+        res.send('Vous êtes connecté')
+    } else {
+        console.log('Votre mail et votre mot de passe comportent des erreurs');
+        res.send('Votre mail et votre mot de passe comportent des erreurs');
+    }
+
+});
+
+// route inscription
 router.post('/', async (req, res) => {
 
     const test = req.body.mail.match(/^[a-z0-9_\-\.]+@[a-z0-9_\-\.]+\.[a-z]+$/i);
@@ -21,8 +37,8 @@ router.post('/', async (req, res) => {
                 nom: req.body.nom,
                 prenom: req.body.prenom,
                 roleId: 3,
-                mail: hash,
-                mdp: req.body.mdp
+                mail: req.body.mail,
+                mdp: hash
             }
             let result = await utilisateursDAO.insertOne(user);
             console.log(result.affectedRows);
@@ -34,9 +50,6 @@ router.post('/', async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-
-
-
 })
 
 module.exports = router;

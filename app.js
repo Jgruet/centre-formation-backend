@@ -26,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/formations', formationsRouter);
 app.use('/formateurs', utilisateursRouter);
 app.use('/inscription', utilisateursRouter);
+app.use('/connexion', utilisateursRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
