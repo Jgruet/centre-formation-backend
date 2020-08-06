@@ -4,13 +4,13 @@ var formationsDAO = require('../models/formationsDAO');
 
 /* GET all formations. */
 router.get('/', async (req, res) => {
-    let result = await formationsDAO.findAll();
-    console.log(result);
+    let result = JSON.parse(JSON.stringify( await formationsDAO.findAll())) ;
+    res.send(result);
 });
 
 /* GET one formation for details. */
 router.get('/:id([0-9]+)', async (req, res) => {
-    let result = await formationsDAO.findOneById(req.params.id);
+    let result = JSON.parse(JSON.stringify(await formationsDAO.findOneById(req.params.id)));
     console.log(result);
 });
 
