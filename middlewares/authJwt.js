@@ -18,18 +18,15 @@ verifyToken = (req, res, next) => {
             });
         }
         req.userId = decoded.id;
-        req.role = decoded.role
-        console.log("verify token req.userId: "+ req.userId)
-        console.log("verify token req.role: "+ req.role)
+        req.role = decoded.roleId;
+
         next();
     });
 };
 
 isAdmin = (req, res, next) => {
-    console.log("req.userId: " + req.userId)
     user.getUser(req.userId)
         .then(user => {
-            console.log('user:'+ user)
             if (user.roleId === 1) {
                 next();
                 return;

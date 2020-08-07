@@ -4,6 +4,7 @@ var utilisateursDAO = require('../models/utilisateursDAO');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const config = require("../config/auth.config");
+const authJwt = require("../middlewares/authJwt");
 
 /* GET users listing. */
 router.get('/formateurs', async (req, res) => {
@@ -19,7 +20,7 @@ router.post('/connexion', async (req, res) => {
         console.log(req.body.mdp)
         if (user && 'mdp' in user) {
             passCheck = await bcrypt.compare(req.body.mdp, user.mdp);
-            const token = jwt.sign({id: user.id}, config.secret, {
+            const token = jwt.sign({id: user.id, roleId: user.roleId}, config.secret, {
                 expiresIn: 86400
             });
             const role = await utilisateursDAO.getRole(user.roleId)
@@ -44,7 +45,6 @@ router.post('/connexion', async (req, res) => {
 
 // route inscription
 router.post('/inscription', async (req, res) => {
-
     const test = req.body.mail.match(/^[a-z0-9_\-\.]+@[a-z0-9_\-\.]+\.[a-z]+$/i);
     const test2 = req.body.mdp.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-!"§$%&/()=?+*~#'_:.,;]).{8,}$/);
     //const checkEmail = await utilisateursDAO.checkEmail(req.body.mail);
@@ -62,16 +62,27 @@ router.post('/inscription', async (req, res) => {
             console.log(result.affectedRows);
             // si === 1, l'insertion est un succès
             console.log('ok vous êtes inscrit');
-            //res.send(result.affectedRows);
+            res.status(200).send({message: result.affectedRows});
 
         } else {
-            throw 'Erreur';
-            res.send('test');
+
+            if(!test2){
+                console.log('mot de passe invalide')
+                throw {error:'pwdFail'}
+                res.send({error:'pwdFail'});
+            }
+
         }
     } catch (err) {
         console.log(err);
         res.send(err);
     }
+})
+
+// route récupération du rôle
+
+router.get('/role', authJwt.verifyToken, (req, res) => {
+    res.json({id: req.userId, role: req.role});
 })
 
 module.exports = router;
