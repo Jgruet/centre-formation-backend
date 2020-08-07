@@ -30,6 +30,9 @@ app.use(function(req, res, next) {
 app.use(require('./routes/index'));
 require('./routes/formations')(app)
 // app.use(require('./routes/formations'));
+app.use(require('./routes/admin'));
+app.use(require('./routes/formateur'));
+app.use(require('./routes/public'));
 app.use(require('./routes/utilisateurs'));
 
 
