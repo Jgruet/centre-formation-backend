@@ -80,7 +80,7 @@ CREATE table PresenceCours (
     presence tinyint unsigned not null default 0,
     coursId smallint unsigned,
     utilisateurId smallint unsigned,
-    PRIMARY KEY (coursId, utilisateurId),
+    PRIMARY KEY (coursId, utilisateurId, date_cours),
     CONSTRAINT PresenceCours_to_Cours FOREIGN KEY (coursId) references Cours(id),
     CONSTRAINT PresenceCours_to_Utilisateurs FOREIGN KEY (utilisateurId) references Utilisateurs(id)
 );
@@ -95,3 +95,5 @@ CREATE table NoteDevoir (
 
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
