@@ -21,12 +21,9 @@ router.post('/cours/new', async (req, res) => {
         const result = await coursDAO.insertOne(newCours);
         console.log(result);
         res.send(result);
-    } catch(err){
+    } catch (err) {
         console.log(err);
     }
-    
-
-
 });
 
 
