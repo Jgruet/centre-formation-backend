@@ -4,10 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-
-var indexRouter = require('./routes/index');
-var formationsRouter = require('./routes/formations');
-var utilisateursRouter = require('./routes/utilisateurs');
+const { authJwt } = require("./middlewares/authJwt");
 
 var app = express();
 
@@ -22,11 +19,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/formations', formationsRouter);
-app.use('/formateurs', utilisateursRouter);
-app.use('/inscription', utilisateursRouter);
-app.use('/connexion', utilisateursRouter);
+app.use(function(req, res, next) {
+  res.header(
+      "Access-Control-Allow-Headers",
+      "x-access-token, Origin, Content-Type, Accept"
+  );
+  next();
+});
+
+app.use(require('./routes/index'));
+require('./routes/formations')(app)
+// app.use(require('./routes/formations'));
+app.use(require('./routes/utilisateurs'));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
