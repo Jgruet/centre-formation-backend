@@ -31,6 +31,8 @@ app.use(require('./routes/index'));
 require('./routes/formations')(app)
 // app.use(require('./routes/formations'));
 app.use(require('./routes/utilisateurs'));
+app.use(require('./routes/admin'));
+app.use(require('./routes/formateur'));
 
 
 // catch 404 and forward to error handler

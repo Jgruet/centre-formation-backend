@@ -22,6 +22,7 @@ router.post('/connexion', async (req, res) => {
             const token = jwt.sign({id: user.id}, config.secret, {
                 expiresIn: 86400
             });
+            console.log(token);
             const role = await utilisateursDAO.getRole(user.roleId)
             console.log('Vous êtes connecté');
             console.log(role)

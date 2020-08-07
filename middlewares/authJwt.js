@@ -4,6 +4,7 @@ const user = require("../models/utilisateursDAO")
 
 verifyToken = (req, res, next) => {
     let token = req.headers["x-access-token"];
+    //console.log(token);
 
     if (!token) {
         return res.status(403).send({
@@ -42,21 +43,21 @@ isAdmin = (req, res, next) => {
 };
 
 isModerator = (req, res, next) => {
-    User.findByPk(req.userId).then(user => {
-        user.getRoles().then(roles => {
-            for (let i = 0; i < roles.length; i++) {
-                if (roles[i].name === "moderator") {
-                    next();
-                    return;
-                }
+    console.log("req.userId: " + req.userId)
+    user.getUser(req.userId)
+        .then(user => {
+            console.log('user:'+ user)
+            if (user.roleId === 2) {
+                next();
+                return;
             }
 
             res.status(403).send({
                 message: "Require Moderator Role!"
-            });
+            })
         });
-    });
 };
+
 
 isModeratorOrAdmin = (req, res, next) => {
     User.findByPk(req.userId).then(user => {
