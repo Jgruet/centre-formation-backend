@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
-const { verifyToken, isAdmin } = require('../middlewares/authJwt');
+const { verifyToken, isAdmin, isModeratorOrAdmin } = require('../middlewares/authJwt');
 const coursDAO = require('../models/coursDAO');
 
-router.use((req, res, next) => {
-    verifyToken(req, res, next);
-    isModeratorOrAdmin(req, res, next);
-    next();
-});
+
+router.use(verifyToken);
+router.use(isModeratorOrAdmin);
+
+
 /*
 router.get('/cours/', (req, res) => {
     res.send('ok vous êtes admin ou formateur');
