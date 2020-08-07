@@ -7,7 +7,7 @@ const config = require("../config/auth.config");
 
 /* GET users listing. */
 router.get('/formateurs', async (req, res) => {
-    let result = JSON.parse(JSON.stringify(await utilisateursDAO.findOneBy('roleId', 2)));
+    let result = JSON.parse(JSON.stringify(await utilisateursDAO.findAllBy('roleId', 2)));
     res.send(result);
 });
 // route login

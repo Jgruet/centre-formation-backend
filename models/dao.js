@@ -24,13 +24,13 @@ DAO = function (tableName) {
         return rows[0][0];
     };
 
-    const findOneBy = async (fieldName, value) => {
+    const findAllBy = async (fieldName, value) => {
         const rows = await query('SELECT * FROM ?? WHERE ??=?', [
             this.tableName,
             fieldName,
             value,
         ]);
-        return rows[0][0];
+        return rows[0];
     };
 
     const insertOne = async data => {
@@ -60,7 +60,7 @@ DAO = function (tableName) {
     return {
         findAll,
         findOneById,
-        findOneBy,
+        findAllBy,
         insertOne,
         deleteOneById,
         updateOne,
