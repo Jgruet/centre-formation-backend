@@ -3,11 +3,9 @@ var router = express.Router();
 const { verifyToken, isAdmin } = require('../middlewares/authJwt');
 const formationDAO = require('../models/formationsDAO');
 
-router.use((req, res, next) => {
-    verifyToken(req, res, next);
-    isAdmin(req, res, next);
-    next();
-});
+
+router.use(verifyToken);
+router.use(isAdmin);
 
 router.get('/formations/new', (req, res) => {
     res.send('ok vous êtes admin');
@@ -32,8 +30,6 @@ router.post('/formations/new', async (req, res) => {
     } catch(err){
         console.log(err);
     }
-    
-
 
 });
 
