@@ -52,4 +52,7 @@ INSERT INTO notedevoir(note, devoirsId, utilisateurId) VALUES
 (9, 3, 6),
 (9, 4, 4);
 
+
+CALL proc_presence_all();
+
 SET FOREIGN_KEY_CHECKS = 1;
