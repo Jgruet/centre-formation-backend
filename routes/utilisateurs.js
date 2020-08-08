@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const { verifyToken, isAuthentificated } = require('../middlewares/authJwt');
 const inscriptionDAO = require('../models/inscriptionDAO');
+const authJwt = require("../middlewares/authJwt");
+
 
 router.use(verifyToken);
 router.use(isAuthentificated);

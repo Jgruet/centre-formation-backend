@@ -64,10 +64,10 @@ router.post('/inscription', async (req, res) => {
             console.log(result.affectedRows);
             // si === 1, l'insertion est un succès
             console.log('ok vous êtes inscrit');
-            //res.send(result.affectedRows);
+            throw {error: "registered"};
 
         } else {
-            throw 'Erreur';
+            throw {error: "pwdFail"};
             res.send('test');
         }
     } catch (err) {
