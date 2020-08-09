@@ -16,30 +16,37 @@ router.get('/formateurs', async (req, res) => {
 router.post('/connexion', async (req, res) => {
         let passCheck = false;
         const user = await utilisateursDAO.findUserByEmail(req.body.mail);
-        console.log(req.body.mail)
-        console.log(req.body.mdp)
+    try {
         if (user && 'mdp' in user) {
             passCheck = await bcrypt.compare(req.body.mdp, user.mdp);
-            const token = jwt.sign({id: user.id}, config.secret, {
-                expiresIn: 86400
-            });
-            console.log(token);
-            const role = await utilisateursDAO.getRole(user.roleId)
-            console.log('Vous êtes connecté');
-            console.log(role)
+            if (passCheck) {
+                const token = jwt.sign({id: user.id}, config.secret, {
+                    expiresIn: 86400
+                });
+                const role = await utilisateursDAO.getRole(user.roleId)
+                console.log('Vous êtes connecté');
+                console.log(role)
 
-            res.status(200).send({
-                id: user.id,
-                nom: user.nom,
-                prenom: user.prenom,
-                mail: user.mail,
-                role: role,
-                accessToken: token
-            })
+                // throw {error: "loggedIn"};
+                res.status(200).send({
+                    id: user.id,
+                    nom: user.nom,
+                    prenom: user.prenom,
+                    mail: user.mail,
+                    role: role,
+                    accessToken: token
+                })
+
+            } else {
+                res.send({error: 'loginFailed'})
+            }
         } else {
-            console.log('Votre mail et votre mot de passe comportent des erreurs');
-            res.send('Votre mail et votre mot de passe comportent des erreurs');
+            res.send({error: 'loginFailed'})
         }
+    }catch (err){
+        console.log(err);
+        res.send(err);
+    }
 
     }
 );
@@ -52,7 +59,9 @@ router.post('/inscription', async (req, res) => {
     //const checkEmail = await utilisateursDAO.checkEmail(req.body.mail);
     try {
         if (test && test2 /*&& checkEmail == undefined*/) {
+            console.log(req.body.mdp)
             const hash = await bcrypt.hash(req.body.mdp, 2);
+            console.log(hash)
             const user = {
                 nom: req.body.nom,
                 prenom: req.body.prenom,

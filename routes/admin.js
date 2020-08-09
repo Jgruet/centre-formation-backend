@@ -4,8 +4,8 @@ const { verifyToken, isAdmin } = require('../middlewares/authJwt');
 const utilisateursDAO = require('../models/utilisateursDAO');
 
 
-router.use(verifyToken);
-router.use(isAdmin);
+// router.use(verifyToken);
+// router.use(isAdmin);
 
 router.get('/formations/new', (req, res) => {
     res.send('ok vous êtes admin');

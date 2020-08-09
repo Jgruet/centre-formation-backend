@@ -9,7 +9,7 @@ CREATE table Utilisateurs (
     prenom varchar (55) not null,
     roleId tinyint unsigned not null,
     mail varchar(55) not null unique,
-    mdp varchar(55) not null,
+    mdp varchar(64) not null,
     PRIMARY KEY(id),
     CONSTRAINT Utilisateurs_to_Roles FOREIGN KEY (roleId) references Roles(id)
 );

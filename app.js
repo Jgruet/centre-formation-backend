@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-const { authJwt } = require("./middlewares/authJwt");
+const authJwt = require("./middlewares/authJwt");
+
 
 var app = express();
 
@@ -31,9 +32,9 @@ app.use(require('./routes/index'));
 require('./routes/formations')(app)
 // app.use(require('./routes/formations'));
 app.use(require('./routes/admin'));
-app.use(require('./routes/formateur'));
+// app.use(require('./routes/formateur'));
 
-app.use(require('./routes/utilisateurs'));
+//app.use(require('./routes/utilisateurs'));
 
 
 // catch 404 and forward to error handler
@@ -53,3 +54,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
